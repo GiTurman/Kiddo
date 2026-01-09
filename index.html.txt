@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIDDO - ცხოვრების წიგნი</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #fdf6e3; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .page-card { background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-md mx-auto">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="bg-orange-200 p-2 rounded-lg">📖</div>
+            <div>
+                <h1 class="text-2xl font-bold text-orange-900 leading-none">KIDDO</h1>
+                <p class="text-sm text-orange-700">ცხოვრების წიგნი</p>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-serif text-orange-900 mb-2">ჩვენი დიდი თავგადასავალი</h2>
+        <p class="text-orange-800 italic mb-8">"ყოველი წამი, როდესაც შენ ჩვენს ცხოვრებაში გაჩნდი, ცალკე ისტორიის ღირსია..."</p>
+
+        <div class="page-card p-6 mb-10">
+            <textarea id="userNote" class="w-full border-none focus:ring-0 text-lg placeholder-orange-200 h-32" placeholder="აღწერე ეს წამი მოკლედ..."></textarea>
+            
+            <div class="flex flex-col gap-4 mt-4">
+                <button class="flex items-center gap-2 text-orange-800 font-medium border border-orange-200 py-2 px-4 rounded-full w-max">
+                    🖼️ ფოტოს დამატება
+                </button>
+                <button onclick="saveMoment()" class="bg-gradient-to-r from-pink-400 to-orange-400 text-white font-bold py-4 rounded-xl shadow-lg hover:opacity-90 transition">
+                    ჩაწერე წიგნში
+                </button>
+            </div>
+        </div>
+
+        <div id="timeline" class="space-y-8 relative">
+            <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-orange-200 -z-10"></div>
+            </div>
+    </div>
+
+    <script>
+        function saveMoment() {
+            const note = document.getElementById('userNote').value;
+            if (!note) return;
+
+            const timeline = document.getElementById('timeline');
+            const momentHtml = `
+                <div class="flex gap-6 items-start relative translate-y-4 opacity-0 transition-all duration-500" style="opacity: 1; transform: translateY(0);">
+                    <div class="w-8 h-8 rounded-full bg-orange-400 flex-shrink-0 border-4 border-white shadow-sm z-10"></div>
+                    <div class="page-card p-4 flex-1">
+                        <p class="text-sm text-orange-400 mb-1">${new Date().toLocaleDateString('ka-GE')}</p>
+                        <p class="text-orange-900">${note}</p>
+                        <p class="text-xs mt-3 text-pink-500 italic">✨ AI-მ დაამუშავა ეს მოგონება...</p>
+                    </div>
+                </div>
+            `;
+            timeline.insertAdjacentHTML('afterbegin', momentHtml);
+            document.getElementById('userNote').value = '';
+        }
+    </script>
+</body>
+</html>
